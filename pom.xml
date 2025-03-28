@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>3.57</version>
+        <version>4.88</version>
         <relativePath />
     </parent>
 
@@ -34,20 +34,13 @@
     <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
 
     <properties>
+        <!-- https://www.jenkins.io/doc/developer/plugin-development/choosing-jenkins-baseline/ -->
+        <jenkins.baseline>2.462</jenkins.baseline>
         <!-- minimal requirements -->
-        <jenkins.version>1.635</jenkins.version><!--2.138.4-->
+        <jenkins.version>${jenkins.baseline}.3</jenkins.version><!--2.138.4-->
         <aws-sdk.version>1.11.403</aws-sdk.version><!--1.11.723-->
-        <aws-creds.version>1.23</aws-creds.version><!--1.28-->
-        <java.level>8</java.level>
+        <aws-creds.version>1.23</aws-creds.version>
     </properties>
-
-    <developers>
-        <developer>
-            <id>jlamande</id>
-            <name>Julien Lamandé</name>
-            <email>jlamande@gmail.com</email>
-        </developer>
-    </developers>
 
     <licenses>
         <license>
@@ -56,11 +49,29 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
+        <connection>scm:git:https://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
         <tag>HEAD</tag>
     </scm>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.jenkins.tools.bom</groupId>
+                <artifactId>bom-${jenkins.baseline}.x</artifactId>
+                <version>4228.v0a_71308d905b_</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jenkins.tools.bom</groupId>
+                <artifactId>bom-weekly</artifactId>
+                <version>4488.v7fe26526366e</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <repositories>
         <repository>
@@ -95,7 +106,6 @@
         <dependency>
             <groupId>org.jenkins-ci.plugins</groupId>
             <artifactId>aws-credentials</artifactId>
-            <version>${aws-creds.version}</version>
         </dependency>
     </dependencies>
 
